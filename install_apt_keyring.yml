@@ -1,0 +1,5 @@
+- hosts: couchdb
+  tasks:
+    - name: Install CouchDB Archive Keyring
+      become: true
+      shell: curl https://couchdb.apache.org/repo/keys.asc | gpg --dearmor | tee /usr/share/keyrings/couchdb-archive-keyring.gpg >/dev/null 2>&1

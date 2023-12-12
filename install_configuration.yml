@@ -1,0 +1,10 @@
+- hosts: couchdb
+  become: true
+  vars_files:
+    - vault.yml
+  tasks:
+    - name: Install CouchDB configuration
+      template:
+        src: local.ini.j2
+        dest: /opt/couchdb/etc/local.ini
+        mode: '0640'

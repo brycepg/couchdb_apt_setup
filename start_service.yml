@@ -1,0 +1,8 @@
+- name: Enable and start service
+  hosts: couchdb
+  become: true
+  tasks:
+    - name: Ensure the service is running
+      systemd:
+        name: couchdb
+        state: started

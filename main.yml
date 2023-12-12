@@ -1,0 +1,8 @@
+- import_playbook: install_dependencies.yml
+- import_playbook: install_apt_keyring.yml
+- import_playbook: install_apt_sources.yml
+- import_playbook: install_couchdb.yml
+- import_playbook: enable_service.yml
+- import_playbook: restart_service.yml
+- import_playbook: create_database.yml
+- import_playbook: remove_postinstallation_script.yml

@@ -1,0 +1,7 @@
+# Usage as submodule
+
+ansible-playbook --ask-vault-pass -i inventory.yml couchdb_apt_setup/main.yml
+
+# Testing
+Test out vault
+ansible-playbook --ask-vault-pass couchdb_apt_setup/test_vars.yml

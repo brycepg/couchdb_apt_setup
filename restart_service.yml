@@ -1,0 +1,7 @@
+- hosts: couchdb
+  become: true
+  tasks:
+    - name: Restart couchdb service
+      systemd:
+        name: couchdb
+        state: restarted

@@ -1,0 +1,9 @@
+- hosts: couchdb
+  vars_files:
+    - vault.yml
+  vars:
+    database_name: obsidian_livesync
+  become: true
+  tasks:
+    - name: Create database on remote
+      shell: curl -X PUT "http://localhost:5984/{{ database_name }}" -u 'admin:{{ admin_password }}'

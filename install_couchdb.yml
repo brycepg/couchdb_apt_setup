@@ -1,0 +1,64 @@
+- hosts: couchdb
+  vars_files:
+    - vault.yml
+  vars:
+    apt_env:
+      DEBIAN_FRONTEND: noninteractive
+  become: true
+  tasks:
+    - name: update apt to ensure sources are present
+      environment: "{{ apt_env }}"
+      apt:
+        update-cache: true
+    - name: debconf mode
+      ansible.builtin.debconf:
+        name: couchdb
+        question: couchdb/mode
+        value: standalone
+        vtype: select
+    - name: debconf mode seen
+      ansible.builtin.debconf:
+        name: couchdb
+        question: couchdb/mode
+        value: true
+        vtype: seen
+    - name: debconf bindaddresss
+      ansible.builtin.debconf:
+        name: couchdb
+        question: couchdb/bindaddress
+        value: '0.0.0.0'
+        vtype: string
+    - name: debconf bindaddresss seen
+      ansible.builtin.debconf:
+        name: couchdb
+        question: couchdb/bindaddress
+        value: true
+        vtype: seen
+    - name: debconf adminpass
+      ansible.builtin.debconf:
+        name: couchdb
+        question: couchdb/adminpass
+        value: "{{ admin_password }}"
+        vtype: password
+    - name: adminpass seen
+      ansible.builtin.debconf:
+        name: couchdb
+        question: couchdb/adminpass
+        value: true
+        vtype: seen
+    - name: adminpass again
+      ansible.builtin.debconf:
+        name: couchdb
+        question: couchdb/adminpass_again
+        value: "{{ admin_password }}"
+        vtype: password
+    - name: adminpass again seen
+      ansible.builtin.debconf:
+        name: couchdb
+        question: couchdb/adminpass_again
+        value: true
+        vtype: seen
+
+    - name: ensure couchdb is at the latest version, bypass interactive install
+      environment: "{{ apt_env }}"
+      apt: name=couchdb state=latest

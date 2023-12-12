@@ -1,0 +1,8 @@
+- hosts: couchdb
+  tasks:
+    - name: ensure curl is at the latest version
+      apt: name=curl state=latest
+    - name: ensure apt-transport-https is at the latest version
+      apt: name=apt-transport-https state=latest
+    - name: ensure gnupg is at the latest version
+      apt: name=gnupg state=latest

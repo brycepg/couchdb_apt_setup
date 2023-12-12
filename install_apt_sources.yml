@@ -1,0 +1,17 @@
+---
+- hosts: couchdb
+  gather_facts: true
+  gather_subset:
+    - "!env"
+    - "!all"
+    - "!min"
+    - lsb
+  tasks:
+  - set_fact:
+      os_version_codename={{ ansible_facts.lsb.codename }}
+
+  - name: Create apt sources for couchdb
+    become: true
+    template:
+      src: couchdb.list.j2
+      dest: /etc/apt/sources.list.d/couchdb.list
