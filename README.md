@@ -5,7 +5,7 @@ This codebase automates the installation of couchdb for obsididan-livesync with 
 This codebase uses ansible to automate the installation of couchdb
 as a standalone database. Please note that this configuration opens up
 the database for remote connections with the password. If the database
-is open to the web, https is required to prevent mitm attacks on login.
+is open to the web, https is required in order to prevent mitm attacks on login.
 
 # Getting started
 
@@ -47,7 +47,7 @@ Set the vault password it with another password that you store in your password 
 Set the contents of ``vault.yml`` to the password you want for couchdb:
 
 ```yaml
-    couchdb_password: yourstrongcouchdbpassword
+couchdb_password: yourstrongcouchdbpassword
 ```
 
 
