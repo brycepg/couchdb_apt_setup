@@ -13,11 +13,17 @@ is open to the web, https is required in order to prevent mitm attacks on login.
 
 These files support Debian based remotes
 
+### Local requirements
+
 Install ansible
 
     pip install ansible
 
-Install SSH, start sshd on your remote, and add your ssh pubkey to the remote
+Ensure ssh is installed locally
+
+### Remote requirements
+
+Install sshd, ensure sshd is started your remote, and add your ssh pubkey to the remote user's ``~/.ssh/authorized_keys``
 
 ## Configuration
 
@@ -27,7 +33,7 @@ Set your inventory:
 
 Change the ip in ``inventory.yml`` to another IP or your web server url
 
-For example
+For example if your host was ``example.com`` your ``inventory.yml`` would look like this:
 
 ```yaml
 couchdb:
@@ -35,16 +41,38 @@ couchdb:
     example.com:
 ```
 
-Where example.com is the remote with ssh access that you want to install couchdb
+Where ``example.com`` is the remote with ssh access that you want to install couchdb. the host can also be an IP (see the provided ``inventory.yml`` for an example)
 
-### Set vault password
+### Set password
+
+You can set the password with or without vault. Using vault is a secure way of storing the couchdb password
+
+#### Set password without vault
+
+overwrite ``vault.yml`` file:
+
+    rm vault.yml
+    vim vault.yml
+
+and set it to
+
+```yml
+couchdb_password: yourthrowawaypassword
+```
+
+You can encrypt the vault later with:
+
+    ansible-vault encrypt vault.yml
+
+#### Set password with vault
+
+Using vault provides a way of using the same password for provisioning without leaving it on your filesystem in plaintext.
+
 
     rm vault.yml
     ansible-vault create vault.yml
 
 Set the vault password with one that you store in your password manager.
-
-You also have the option of creating ``vault.yml`` without vault encryption for testing purposes.
 
 Set the contents of ``vault.yml`` to the password you want for couchdb:
 
@@ -55,9 +83,18 @@ couchdb_password: yourstrongcouchdbpassword
 
 ## Run
 
-    ansible-playbook --ask-vault-pass -i inventory.yml main.yml
-
-This configures couchdb in its entirety  
+If ``inventory.yml`` and the couchdb password is set, this configures couchdb in its entirety.  
 After this playbook runs, you should be able to connect obisdian livesync at ``http://<your ip or domain>:5984``
 
 Use the password you set inside ``vault.yml`` for obsidian-livesync
+
+### Run with vault
+
+    ansible-playbook --ask-vault-pass -i inventory.yml main.yml
+
+Enter your vault password.
+
+### Run without vault
+
+    ansible-playbook -i inventory.yml main.yml
+
