@@ -42,13 +42,14 @@ Where example.com is the remote with ssh access that you want to install couchdb
     rm vault.yml
     ansible-vault create vault.yml
 
+Set the vault password it with another password that you store in your password manager.
+
 Set the contents of ``vault.yml`` to the password you want for couchdb:
 
 ```yaml
     couchdb_password: yourstrongcouchdbpassword
 ```
 
-And then encrypt it with another password that you store in your password manager
 
 ## Run
 
@@ -56,3 +57,5 @@ And then encrypt it with another password that you store in your password manage
 
 This configures couchdb in its entirety  
 After this playbook runs, you should be able to connect obisdian livesync at ``http://<your ip or domain>:5984``
+
+Use the password you set inside ``vault.yml`` for obsidian-livesync
