@@ -1,7 +1,9 @@
+This codebase automates the installation of couchdb for obsididan-livesync with ansible
+
 # Notice
 
 This codebase uses ansible to automate the installation of couchdb
-as a single database. Please note that this configuration opens up
+as a standalone database. Please note that this configuration opens up
 the database for remote connections with the password. If the database
 is open to the web, https is required to prevent mitm attacks on login.
 
@@ -11,9 +13,9 @@ is open to the web, https is required to prevent mitm attacks on login.
 
 These files support Debian based remotes
 
-Install ansible (ubuntu or WSL)
+Install ansible
 
-    sudo apt install ansible
+    pip install ansible
 
 Install SSH, start sshd on your remote, and add your ssh pubkey to the remote
 
@@ -40,7 +42,7 @@ Where example.com is the remote with ssh access that you want to install couchdb
     rm vault.yml
     ansible-vault create vault.yml
 
-Se the contents of ``vault.yml`` to the password you want for couchdb:
+Set the contents of ``vault.yml`` to the password you want for couchdb:
 
 ```yaml
     couchdb_password: yourstrongcouchdbpassword
@@ -49,3 +51,8 @@ Se the contents of ``vault.yml`` to the password you want for couchdb:
 And then encrypt it with another password that you store in your password manager
 
 ## Run
+
+    ansible-playbook --ask-vault-pass -i inventory.yml main.yml
+
+This configures couchdb in its entirety  
+After this playbook runs, you should be able to connect obisdian livesync at ``http://<your ip or domain>:5984``
