@@ -42,7 +42,9 @@ Where example.com is the remote with ssh access that you want to install couchdb
     rm vault.yml
     ansible-vault create vault.yml
 
-Set the vault password it with another password that you store in your password manager.
+Set the vault password with one that you store in your password manager.
+
+You also have the option of creating ``vault.yml`` without vault encryption for testing purposes.
 
 Set the contents of ``vault.yml`` to the password you want for couchdb:
 
