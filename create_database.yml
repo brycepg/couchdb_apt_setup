@@ -6,4 +6,4 @@
   become: true
   tasks:
     - name: Create database on remote
-      shell: curl -X PUT "http://localhost:5984/{{ database_name }}" -u 'admin:{{ admin_password }}'
+      shell: curl -X PUT "http://localhost:5984/{{ database_name }}" -u 'admin:{{ couchdb_password }}'

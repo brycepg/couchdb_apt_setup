@@ -16,48 +16,31 @@
         question: couchdb/mode
         value: standalone
         vtype: select
-    - name: debconf mode seen
-      ansible.builtin.debconf:
-        name: couchdb
-        question: couchdb/mode
-        value: true
-        vtype: seen
     - name: debconf bindaddresss
       ansible.builtin.debconf:
         name: couchdb
         question: couchdb/bindaddress
         value: '0.0.0.0'
         vtype: string
-    - name: debconf bindaddresss seen
-      ansible.builtin.debconf:
-        name: couchdb
-        question: couchdb/bindaddress
-        value: true
-        vtype: seen
     - name: debconf adminpass
       ansible.builtin.debconf:
         name: couchdb
         question: couchdb/adminpass
-        value: "{{ admin_password }}"
+        value: "{{ couchdb_password }}"
         vtype: password
-    - name: adminpass seen
+    - name: debconf cookie
       ansible.builtin.debconf:
         name: couchdb
-        question: couchdb/adminpass
-        value: true
-        vtype: seen
+        question: couchdb/cookie
+        value: 1234
+        vtype: string
+
     - name: adminpass again
       ansible.builtin.debconf:
         name: couchdb
         question: couchdb/adminpass_again
-        value: "{{ admin_password }}"
+        value: "{{ couchdb_password }}"
         vtype: password
-    - name: adminpass again seen
-      ansible.builtin.debconf:
-        name: couchdb
-        question: couchdb/adminpass_again
-        value: true
-        vtype: seen
 
     - name: ensure couchdb is at the latest version, bypass interactive install
       environment: "{{ apt_env }}"
