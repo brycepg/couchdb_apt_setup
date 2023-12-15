@@ -1,7 +1,8 @@
 - hosts: couchdb
+  become: true
   tasks:
-    - name: ensure    systemctl is at the latest version
-      apt: name=systemctl state=latest
+    # - name: ensure    systemctl is at the latest version
+    #   apt: name=systemctl state=present
     - name: ensure    debconf-utils is at the latest version
       apt: name=debconf-utils state=latest
     - name: ensure curl is at the latest version

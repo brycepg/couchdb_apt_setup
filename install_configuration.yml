@@ -6,5 +6,6 @@
     - name: Install CouchDB configuration
       template:
         src: local.ini.j2
-        dest: /opt/couchdb/etc/local.ini
+        dest: /opt/couchdb/etc/local.d/local.ini
+        # dest: /opt/couchdb/etc/local.ini
         mode: '0640'
