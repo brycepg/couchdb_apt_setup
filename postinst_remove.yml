@@ -1,0 +1,8 @@
+- hosts: couchdb
+  become: true
+  tasks:
+    # The postinstallation script keeps failing even 
+    # though couchdb is working properly. Remove it
+    - file:
+        name: /var/lib/dpkg/info/couchdb.postinst
+        state: absent
